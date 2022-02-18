@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>new</title>
+</head>
+<body>
+
+<div th:each="group : ${groups}">
+    <li th:utext="${group}"></li>
+</div>
+
+<p>
+    <a href="group/new">Создать новую группу</a>
+</p>
+
+</body>
+</html>
