@@ -51,7 +51,7 @@ public class StudentService {
                 "group w id " + groupId + " doesn't exist!"
         ));
 
-        student.setGroup(group);
+        student.setStudentGroup(group);
     }
 
     public void addNewStudent(Student student) {

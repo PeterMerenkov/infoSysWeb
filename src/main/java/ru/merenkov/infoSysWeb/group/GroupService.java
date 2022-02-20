@@ -17,6 +17,10 @@ public class GroupService {
         this.groupRepos = groupRepos;
     }
 
+    public GroupRepos getGroupRepos() {
+        return groupRepos;
+    }
+
     public List<Group> getGroups() {
         return groupRepos.findAll();
     }

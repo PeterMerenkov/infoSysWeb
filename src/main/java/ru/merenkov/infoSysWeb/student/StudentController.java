@@ -1,23 +1,23 @@
 package ru.merenkov.infoSysWeb.student;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import java.time.LocalDate;
-import java.util.List;
+import ru.merenkov.infoSysWeb.group.GroupId;
+import ru.merenkov.infoSysWeb.group.GroupService;
 
 @Controller
 @RequestMapping(path = "student")
 public class StudentController {
 
     private final StudentService studentService;
+    private final GroupService groupService;
 
     @Autowired
-    public StudentController(StudentService studentService) {
+    public StudentController(StudentService studentService, GroupService groupService) {
         this.studentService = studentService;
+        this.groupService = groupService;
     }
 
     @GetMapping
@@ -37,12 +37,16 @@ public class StudentController {
     }*/
 
     @GetMapping("/new")
-    public String createNewStudent(@ModelAttribute("student") Student student) {
+    public String createNewStudent(Model model) {
+        model.addAttribute("groupId", new GroupId());
+        model.addAttribute("student", new Student());
+        model.addAttribute("groups", groupService.getGroups());
         return "new";
     }
 
     @PostMapping
-    public String registerNewStudent(@ModelAttribute("student") Student student) {
+    public String registerNewStudent(@ModelAttribute("student") Student student, @ModelAttribute("groupId") GroupId groupId) {
+        student.setStudentGroup(groupService.getGroupRepos().getById(groupId.getGroupId()));
         studentService.addNewStudent(student);
         return "redirect:/student";
     }

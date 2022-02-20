@@ -1,6 +1,8 @@
 package ru.merenkov.infoSysWeb.student;
 
+import org.springframework.format.annotation.DateTimeFormat;
 import ru.merenkov.infoSysWeb.group.Group;
+import ru.merenkov.infoSysWeb.group.GroupService;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -20,8 +22,11 @@ public class Student {
             generator = "student_sequence"
     )
     private Long id;
+
     private String fullName;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate dateOfAdmission;
+
     @ManyToOne
     @JoinColumn(name = "stud_group_id",
             foreignKey = @ForeignKey(name = "GROUP_ID_FK")
@@ -29,6 +34,11 @@ public class Student {
     private Group studentGroup;
 
     public Student() {
+    }
+
+    public Student(String fullName, LocalDate dateOfAdmission) {
+        this.fullName = fullName;
+        this.dateOfAdmission = dateOfAdmission;
     }
 
     public Student(String fullName, LocalDate dateOfAdmission, Group studentGroup) {
@@ -68,12 +78,12 @@ public class Student {
         this.dateOfAdmission = dateOfAdmission;
     }
 
-    public Group getGroup() {
+    public Group getStudentGroup() {
         return studentGroup;
     }
 
-    public void setGroup(Group group) {
-        this.studentGroup = group;
+    public void setStudentGroup(Group studentGroup) {
+        this.studentGroup = studentGroup;
     }
 
     @Override

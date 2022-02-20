@@ -8,15 +8,24 @@
 
 <form th:method="POST" th:action="@{/group}" th:object="${group}">
 
-    <input type="number" th:field="*{groupNumber}" />
-    <br />
-    <input type="text" th:field="*{faculty}" />
+    <label>Номер группы:
+        <input type="number" th:field="*{groupNumber}" />
+    </label>
 
-    <input type="submit" value="Create!">
+    <br />
+
+    <label>Факультет:
+        <input type="text" th:field="*{faculty}" />
+    </label>
+
+    <br />
+    <br />
+
+    <input type="submit" value="Создать группу!">
 </form>
 
 <p>
-    <a href="http://localhost:8080/student">Назад</a>
+    <a href="http://localhost:8080/group">Назад</a>
 </p>
 
 </body>

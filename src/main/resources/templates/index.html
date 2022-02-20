@@ -6,12 +6,16 @@
 </head>
 <body>
 
+<p>
+    СПИСОК СТУДЕНТОВ
+</p>
+
 <div th:each="student : ${students}">
     <li th:utext="${student}"></li>
 </div>
 
 <p>
-    <a href="student/new">Создать новую группу</a>
+    <a href="student/new">Создать нового студента</a>
 </p>
 <p>
     <a href="group">Группы</a>

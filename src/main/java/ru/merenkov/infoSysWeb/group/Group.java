@@ -66,4 +66,12 @@ public class Group {
                 ", faculty='" + faculty + '\'' +
                 '}';
     }
+
+    public String toJSONString() {
+        return "{" +
+                "\"id\": " + id +
+                ", \"groupNumber\": " + groupNumber +
+                ", \"faculty\": \"" + faculty + "\"" +
+                "}";
+    }
 }
