@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Student info</title>
+</head>
+<body>
+
+<div th:object="${selectedGroup}">
+    <table>
+        <tr>
+            <td>ID:</td><td th:text="*{id}"></td>
+        </tr>
+        <tr>
+            <td>Факультет:</td><td th:text="*{faculty}"></td>
+        </tr>
+        <tr>
+            <td>Номер группы:</td><td th:text="*{groupNumber}"></td>
+        </tr>
+    </table>
+    <a th:href="@{*{id}} + @{/update}">Внести изменения</a>
+    <a href="http://localhost:8080/group/">Назад</a>
+</div>
+
+</body>
+</html>

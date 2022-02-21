@@ -23,13 +23,37 @@ public class StudentController {
     @GetMapping
     public String getStudents(Model model) {
         model.addAttribute("students", studentService.getStudents());
-        return "index";
+        return "students";
+    }
+
+    @GetMapping(path = "{studentId}")
+    public String getStudent(Model model, @PathVariable("studentId") Long studentId) {
+        model.addAttribute("selectedStudent", studentService.getStudentById(studentId));
+        return "selectedStudentInfo";
+    }
+
+    @GetMapping(path = "{studentId}/update")
+    public String updateStudent(Model model, @PathVariable("studentId") Long studentId) {
+        model.addAttribute("groupId", new GroupId());
+        model.addAttribute("student", new Student());
+        model.addAttribute("groups", groupService.getGroups());
+
+        model.addAttribute("studentId", studentId);
+        return "updateStudent";
+    }
+
+    @PostMapping(path = "{studentId}/update")
+    public String addUpdatedStudent(@ModelAttribute("student") Student student, @PathVariable("studentId") Long studentId,
+                                    @ModelAttribute("groupId") GroupId groupId) {
+        student.setStudentGroup(groupService.getGroupRepos().getById(groupId.getGroupId()));
+        studentService.updateStudent(studentId, student);
+        return "redirect:/student";
     }
 
     /*@PutMapping(path = "{studentId}")
     public void updateStudent(
             @PathVariable("studentId") Long studentId,
-            @RequestParam("dateOfAdmission") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate dateOfAdmission,
+            @RequestParam("dateOfAdmission") LocalDate dateOfAdmission,
             @RequestParam(required = false) String fullName,
             @RequestParam(required = false) Long groupId) {
 
@@ -41,7 +65,7 @@ public class StudentController {
         model.addAttribute("groupId", new GroupId());
         model.addAttribute("student", new Student());
         model.addAttribute("groups", groupService.getGroups());
-        return "new";
+        return "newStudent";
     }
 
     @PostMapping

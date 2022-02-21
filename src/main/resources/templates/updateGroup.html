@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>new</title>
+</head>
+<body>
+
+<form th:method="POST" th:action="@{/group/} + @{${groupId}} + @{/update}" th:object="${group}" enctype="multipart/form-data">
+
+    <table>
+        <tr>
+            <td>Факультет:</td><td><input type="text" th:field="*{faculty}" /></td>
+        </tr>
+        <tr>
+            <td>Номер группы:</td><td><input type="number" th:field="*{groupNumber}" /></td>
+        </tr>
+    </table>
+
+    <input type="submit" value="Обновить группу!" />
+</form>
+
+<p>
+    <a href="http://localhost:8080/group">Назад</a>
+</p>
+
+</body>
+</html>

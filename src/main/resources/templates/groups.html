@@ -11,14 +11,14 @@
 </p>
 
 <div th:each="group : ${groups}">
-    <li th:utext="${group}"></li>
+    <a th:href="@{http://localhost:8080/group/} + @{${group.id}}" th:utext="${group.faculty} + '-' + ${group.groupNumber}"></a>
 </div>
 
 <p>
-    <a href="group/new">Создать новую группу</a>
+    <a href="http://localhost:8080/group/new">Создать новую группу</a>
 </p>
 <p>
-    <a href="student">Студенты</a>
+    <a href="http://localhost:8080/student">Студенты</a>
 </p>
 
 </body>

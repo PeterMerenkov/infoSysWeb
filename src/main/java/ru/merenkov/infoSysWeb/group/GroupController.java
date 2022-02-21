@@ -6,9 +6,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.merenkov.infoSysWeb.student.Student;
 
-import java.time.LocalDate;
-import java.util.List;
-
 @Controller
 @RequestMapping(path = "group")
 public class GroupController {
@@ -23,7 +20,26 @@ public class GroupController {
     @GetMapping
     public String getGroups(Model model) {
         model.addAttribute("groups", groupService.getGroups());
-        return "stud-groups";
+        return "groups";
+    }
+
+    @GetMapping(path = "{groupId}")
+    public String getGroup(Model model, @PathVariable("groupId") Long groupId) {
+        model.addAttribute("selectedGroup", groupService.getGroupById(groupId));
+        return "selectedGroupInfo";
+    }
+
+    @GetMapping(path = "{groupId}/update")
+    public String updateGroup(Model model, @PathVariable("groupId") Long groupId) {
+        model.addAttribute("groupId", groupId);
+        model.addAttribute("group", new Group());
+        return "updateGroup";
+    }
+
+    @PostMapping(path = "{groupId}/update")
+    public String addUpdatedGroup(@ModelAttribute("group") Group group, @PathVariable("groupId") Long groupId) {
+        groupService.updateGroup(groupId, group);
+        return "redirect:/group";
     }
 
     /*@PutMapping(path = "{groupId}")

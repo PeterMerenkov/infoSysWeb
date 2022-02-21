@@ -25,25 +25,29 @@ public class GroupService {
         return groupRepos.findAll();
     }
 
+    public Group getGroupById(Long id) {
+        return groupRepos.getById(id);
+    }
+
     @Transactional
-    public void updateGroup(Long groupId, Integer number, String fac) {
+    public void updateGroup(Long groupId, Group otherGroup) {
         Group group = groupRepos.findById(groupId).orElseThrow(
                 () -> new IllegalStateException(
                         "group w id " + groupId + " doesn't exist!"
                 ));
 
-        if (number != null &&
-                number > 0 &&
-                !Objects.equals(group.getGroupNumber(), number)) {
+        if (otherGroup.getGroupNumber() != null &&
+                otherGroup.getGroupNumber() > 0 &&
+                !Objects.equals(group.getGroupNumber(), otherGroup.getGroupNumber())) {
 
-            group.setGroupNumber(number);
+            group.setGroupNumber(otherGroup.getGroupNumber());
         }
 
-        if (fac != null &&
-                fac.length() > 0 &&
-                !Objects.equals(group.getFaculty(), fac)) {
+        if (otherGroup.getFaculty() != null &&
+                otherGroup.getFaculty().length() > 0 &&
+                !Objects.equals(group.getFaculty(), otherGroup.getFaculty())) {
 
-            group.setFaculty(fac);
+            group.setFaculty(otherGroup.getFaculty());
         }
     }
 

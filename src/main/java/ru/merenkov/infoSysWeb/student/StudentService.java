@@ -27,28 +27,32 @@ public class StudentService {
         return studentRepos.findAll();
     }
 
+    public Student getStudentById(Long id) {
+        return studentRepos.getById(id);
+    }
+
     @Transactional
-    public void updateStudent(Long studentId, String fullName, LocalDate dateOfAdmission, Long groupId) {
+    public void updateStudent(Long studentId, Student otherStudent) {
 
         Student student = studentRepos.findById(studentId).orElseThrow(
                 () -> new IllegalStateException(
                 "student w id " + studentId + " doesn't exist!"
                 ));
 
-        if (fullName != null &&
-                fullName.length() > 0 &&
-                !Objects.equals(student.getFullName(), fullName)) {
+        if (otherStudent.getFullName() != null &&
+                otherStudent.getFullName() .length() > 0 &&
+                !Objects.equals(student.getFullName(), otherStudent.getFullName() )) {
 
-            student.setFullName(fullName);
+            student.setFullName(otherStudent.getFullName() );
         }
 
-        if (dateOfAdmission != null && !Objects.equals(student.getDateOfAdmission(), dateOfAdmission)) {
+        if (otherStudent.getDateOfAdmission() != null && !Objects.equals(student.getDateOfAdmission(), otherStudent.getDateOfAdmission())) {
 
-            student.setDateOfAdmission(dateOfAdmission);
+            student.setDateOfAdmission(otherStudent.getDateOfAdmission() );
         }
 
-        Group group = groupRepos.findById(groupId).orElseThrow(() -> new IllegalStateException(
-                "group w id " + groupId + " doesn't exist!"
+        Group group = groupRepos.findById(otherStudent.getStudentGroup().getId()).orElseThrow(() -> new IllegalStateException(
+                "group w id " + otherStudent.getStudentGroup().getId() + " doesn't exist!"
         ));
 
         student.setStudentGroup(group);
