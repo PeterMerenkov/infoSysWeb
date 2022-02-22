@@ -10,16 +10,53 @@
     Список студентов
 </h1>
 
-<div th:each="student : ${students}">
-    <a th:href="@{http://localhost:8080/student/} + @{${student.id}}" th:utext="${student.fullName}"></a>
+<div>
+    <form th:action="@{http://localhost:8080/student/search}">
+        <label>Поиск:
+            <input type="text" th:name="needle"/>
+        </label>
+        <input type="submit" value="Найти!">
+    </form>
+
+    <form th:action="@{http://localhost:8080/student/sort}">
+        <label>Сортировать по:
+            <select name="sort">
+                <option disabled selected>Выберете метод</option>
+                <option value="ById">ID</option>
+                <option value="ByFullName">Полному имени</option>
+                <option value="ByDateOfAdmission">Дате поступления</option>
+                <option value="ByGroup">Группе</option>
+            </select>
+        </label>
+
+        <input type="submit" value="Отсортировать!">
+    </form>
+
+    <table border="1">
+
+        <thead>
+            <tr>
+                <td>ID</td><td>Полное имя</td><td>Дата поступления</td><td>Группа</td><td>Подробнее</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="student : ${students}" th:object="${student}">
+                <td th:text="*{id}"></td>
+                <td th:text="*{fullName}"></td>
+                <td th:text="*{dateOfAdmission}"></td>
+                <td th:text="*{studentGroup.faculty} + '-' + *{studentGroup.groupNumber}"></td>
+                <td>
+                    <a th:href="@{http://localhost:8080/student/} + @{${student.id}}">Подробнее</a>
+                </td>
+            </tr>
+        </tbody>
+
+    </table>
 </div>
 
 <p>
     <a href="http://localhost:8080/student/new">Создать нового студента</a>
 </p>
-<!--<p>
-    <a href="http://localhost:8080/group">Группы</a>
-</p>-->
 <p>
     <a href="http://localhost:8080">На главную</a>
 </p>

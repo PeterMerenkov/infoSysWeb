@@ -4,10 +4,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.merenkov.infoSysWeb.group.Group;
 import ru.merenkov.infoSysWeb.group.GroupRepos;
+import ru.merenkov.infoSysWeb.student.comparators.StudentDateComparator;
+import ru.merenkov.infoSysWeb.student.comparators.StudentFullNameComparator;
+import ru.merenkov.infoSysWeb.student.comparators.StudentGroupComparator;
+import ru.merenkov.infoSysWeb.student.comparators.StudentIdComparator;
 
 import javax.transaction.Transactional;
-import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 
 @Service
@@ -73,5 +78,31 @@ public class StudentService {
             );
         }
         studentRepos.deleteById(studentId);
+    }
+
+    public List<Student> searchStudents(String needle) {
+        List<Student> searchedStudent = new ArrayList<>();
+
+        for (Student student : getStudents()) {
+            if (student.getFullName().toLowerCase(Locale.ROOT).contains(needle.toLowerCase(Locale.ROOT))) {
+                searchedStudent.add(student);
+            }
+        }
+
+        return searchedStudent;
+    }
+
+    public List<Student> getStudentsSortedBy(String sort) {
+
+        List<Student> sortedStudents = getStudents();
+
+        switch (sort) {
+            case "ById" -> sortedStudents.sort(new StudentIdComparator());
+            case "ByFullName" -> sortedStudents.sort(new StudentFullNameComparator());
+            case "ByDateOfAdmission" -> sortedStudents.sort(new StudentDateComparator());
+            case "ByGroup" -> sortedStudents.sort(new StudentGroupComparator());
+        }
+
+        return sortedStudents;
     }
 }

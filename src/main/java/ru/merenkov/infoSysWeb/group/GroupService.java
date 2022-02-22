@@ -2,9 +2,19 @@ package ru.merenkov.infoSysWeb.group;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ru.merenkov.infoSysWeb.group.comparators.GroupFacultyComparator;
+import ru.merenkov.infoSysWeb.group.comparators.GroupIdComparator;
+import ru.merenkov.infoSysWeb.group.comparators.GroupNumberComparator;
+import ru.merenkov.infoSysWeb.student.Student;
+import ru.merenkov.infoSysWeb.student.comparators.StudentDateComparator;
+import ru.merenkov.infoSysWeb.student.comparators.StudentFullNameComparator;
+import ru.merenkov.infoSysWeb.student.comparators.StudentGroupComparator;
+import ru.merenkov.infoSysWeb.student.comparators.StudentIdComparator;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 
 @Service
@@ -64,5 +74,30 @@ public class GroupService {
             );
         }
         groupRepos.deleteById(groupId);
+    }
+
+    public List<Group> searchGroups(String needle) {
+        List<Group> searchedGroups = new ArrayList<>();
+
+        for (Group group : getGroups()) {
+            if (group.getFaculty().toLowerCase(Locale.ROOT).contains(needle.toLowerCase(Locale.ROOT))) {
+                searchedGroups.add(group);
+            }
+        }
+
+        return searchedGroups;
+    }
+
+    public List<Group> getGroupsSortedBy(String sort) {
+
+        List<Group> sortedGroups = getGroups();
+
+        switch (sort) {
+            case "ById" -> sortedGroups.sort(new GroupIdComparator());
+            case "ByFaculty" -> sortedGroups.sort(new GroupFacultyComparator());
+            case "ByGroupNumber" -> sortedGroups.sort(new GroupNumberComparator());
+        }
+
+        return sortedGroups;
     }
 }

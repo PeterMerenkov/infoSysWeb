@@ -4,7 +4,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "stud_group")
-public class Group {
+public class Group implements Comparable<Group> {
 
     @Id
     @SequenceGenerator(
@@ -67,11 +67,16 @@ public class Group {
                 '}';
     }
 
-    public String toJSONString() {
-        return "{" +
-                "\"id\": " + id +
-                ", \"groupNumber\": " + groupNumber +
-                ", \"faculty\": \"" + faculty + "\"" +
-                "}";
+    @Override
+    public int compareTo(Group otherGroup){
+        if (this.toString().compareTo(otherGroup.toString()) > 0) {
+            return 1;
+        }
+        else if (this.toString().compareTo(otherGroup.toString()) < 0) {
+            return -1;
+        }
+        else {
+            return 0;
+        }
     }
 }

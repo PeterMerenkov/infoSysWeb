@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import ru.merenkov.infoSysWeb.student.Student;
 
 @Controller
 @RequestMapping(path = "group")
@@ -20,6 +19,18 @@ public class GroupController {
     @GetMapping
     public String getGroups(Model model) {
         model.addAttribute("groups", groupService.getGroups());
+        return "groups";
+    }
+
+    @GetMapping(path = "/search")
+    public String getSearchedStudents(Model model, @RequestParam("needle") String needle) {
+        model.addAttribute("groups", groupService.searchGroups(needle));
+        return "groups";
+    }
+
+    @GetMapping(path = "/sort")
+    public String getSortedStudents(Model model, @RequestParam("sort") String sort) {
+        model.addAttribute("groups", groupService.getGroupsSortedBy(sort));
         return "groups";
     }
 
