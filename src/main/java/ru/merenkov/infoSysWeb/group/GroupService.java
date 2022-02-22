@@ -65,15 +65,23 @@ public class GroupService {
         groupRepos.save(group);
     }
 
-    public void deleteGroup(Long groupId) {
-        boolean exists = groupRepos.existsById(groupId);
+    public boolean deleteGroup(Long groupId, List<Student> students) {
+        Group group = groupRepos.getById(groupId);
 
-        if (!exists) {
-            throw new IllegalStateException(
-                    "group w id: " + groupId + " doesn't exist!"
-            );
+        boolean canDelete = true;
+
+        for(Student student : students) {
+            if (student.getStudentGroup().compareTo(group) == 0) {
+                canDelete = false;
+            }
         }
-        groupRepos.deleteById(groupId);
+
+        if (canDelete) {
+            groupRepos.deleteById(groupId);
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public List<Group> searchGroups(String needle) {

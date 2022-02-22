@@ -4,16 +4,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import ru.merenkov.infoSysWeb.student.StudentService;
 
 @Controller
 @RequestMapping(path = "group")
 public class GroupController {
 
     private final GroupService groupService;
+    private final StudentService studentService;
 
     @Autowired
-    public GroupController(GroupService groupService) {
+    public GroupController(GroupService groupService, StudentService studentService) {
         this.groupService = groupService;
+        this.studentService = studentService;
     }
 
     @GetMapping
@@ -66,7 +69,11 @@ public class GroupController {
 
     @GetMapping(path = "{groupId}/delete")
     public String deleteGroup(@PathVariable("groupId") Long groupId) {
-        groupService.deleteGroup(groupId);
-        return "redirect:/group";
+        if(groupService.deleteGroup(groupId, studentService.getStudents())) {
+            return "redirect:/group";
+        } else {
+            return "studentDeleteError";
+        }
+
     }
 }
