@@ -34,7 +34,6 @@ public class StudentController {
 
     @GetMapping(path = "{studentId}/update")
     public String updateStudent(Model model, @PathVariable("studentId") Long studentId) {
-        model.addAttribute("groupId", new GroupId());
         model.addAttribute("student", new Student());
         model.addAttribute("groups", groupService.getGroups());
 
@@ -44,39 +43,29 @@ public class StudentController {
 
     @PostMapping(path = "{studentId}/update")
     public String addUpdatedStudent(@ModelAttribute("student") Student student, @PathVariable("studentId") Long studentId,
-                                    @ModelAttribute("groupId") GroupId groupId) {
-        student.setStudentGroup(groupService.getGroupRepos().getById(groupId.getGroupId()));
+                                    @ModelAttribute("groupId") Long groupId) {
+        student.setStudentGroup(groupService.getGroupRepos().getById(groupId));
         studentService.updateStudent(studentId, student);
         return "redirect:/student";
     }
 
-    /*@PutMapping(path = "{studentId}")
-    public void updateStudent(
-            @PathVariable("studentId") Long studentId,
-            @RequestParam("dateOfAdmission") LocalDate dateOfAdmission,
-            @RequestParam(required = false) String fullName,
-            @RequestParam(required = false) Long groupId) {
-
-        studentService.updateStudent(studentId, fullName, dateOfAdmission, groupId);
-    }*/
-
     @GetMapping("/new")
     public String createNewStudent(Model model) {
-        model.addAttribute("groupId", new GroupId());
         model.addAttribute("student", new Student());
         model.addAttribute("groups", groupService.getGroups());
         return "newStudent";
     }
 
     @PostMapping
-    public String registerNewStudent(@ModelAttribute("student") Student student, @ModelAttribute("groupId") GroupId groupId) {
-        student.setStudentGroup(groupService.getGroupRepos().getById(groupId.getGroupId()));
+    public String registerNewStudent(@ModelAttribute("student") Student student, @RequestParam("groupId") Long groupId) {
+        student.setStudentGroup(groupService.getGroupRepos().getById(groupId));
         studentService.addNewStudent(student);
         return "redirect:/student";
     }
 
-    /*@DeleteMapping(path = "{studentId}")
-    public void deleteStudent(@PathVariable("studentId") Long studentId) {
+    @GetMapping(path = "{studentId}/delete")
+    public String deleteStudent(@PathVariable("studentId") Long studentId) {
         studentService.deleteStudent(studentId);
-    }*/
+        return "redirect:/student";
+    }
 }

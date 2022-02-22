@@ -42,15 +42,6 @@ public class GroupController {
         return "redirect:/group";
     }
 
-    /*@PutMapping(path = "{groupId}")
-    public void updateGroup(
-            @PathVariable("groupId") Long groupId,
-            @RequestParam(required = false) Integer number,
-            @RequestParam(required = false) String fac) {
-
-        groupService.updateGroup(groupId, number, fac);
-    }*/
-
     @GetMapping("/new")
     public String createGroup(@ModelAttribute("group") Group group) {
         return "newGroup";
@@ -62,8 +53,9 @@ public class GroupController {
         return "redirect:/group";
     }
 
-    /*@DeleteMapping(path = "{groupId}")
-    public void deleteGroup(@PathVariable("groupId") Long groupId) {
+    @GetMapping(path = "{groupId}/delete")
+    public String deleteGroup(@PathVariable("groupId") Long groupId) {
         groupService.deleteGroup(groupId);
-    }*/
+        return "redirect:/group";
+    }
 }

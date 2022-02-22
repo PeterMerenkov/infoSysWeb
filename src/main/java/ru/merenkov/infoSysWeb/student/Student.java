@@ -36,11 +36,6 @@ public class Student {
     public Student() {
     }
 
-    public Student(String fullName, LocalDate dateOfAdmission) {
-        this.fullName = fullName;
-        this.dateOfAdmission = dateOfAdmission;
-    }
-
     public Student(String fullName, LocalDate dateOfAdmission, Group studentGroup) {
         this.fullName = fullName;
         this.dateOfAdmission = dateOfAdmission;

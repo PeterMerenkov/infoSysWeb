@@ -2,9 +2,13 @@
 <html lang="en" xmlns:th="http://thymeleaf.org">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title>new</title>
+    <title>Создание нового студента</title>
 </head>
 <body>
+
+<h1>
+    Создание нового студента
+</h1>
 
 <form th:method="POST" th:action="@{/student}" th:object="${student}" enctype="multipart/form-data">
 
@@ -18,7 +22,8 @@
         <tr>
             <td>ФАКУЛЬТЕТ-ГРУППА:</td>
             <td>
-                <select th:object="${groupId}" th:field="*{groupId}">
+                <!--<select th:object="${groupId}" th:field="*{groupId}">-->
+                <select th:name="groupId">
                     <option th:each="group : ${groups}" th:value="${group.id}"
                             th:utext="${group.faculty} + '-' + ${group.groupNumber}"></option>
                 </select>

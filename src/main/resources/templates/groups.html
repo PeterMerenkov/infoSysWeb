@@ -2,13 +2,13 @@
 <html lang="en" xmlns:th="http://thymeleaf.org">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title>new</title>
+    <title>Список групп</title>
 </head>
 <body>
 
-<p>
-    СПИСОК ГРУПП
-</p>
+<h1>
+    Список групп
+</h1>
 
 <div th:each="group : ${groups}">
     <a th:href="@{http://localhost:8080/group/} + @{${group.id}}" th:utext="${group.faculty} + '-' + ${group.groupNumber}"></a>
@@ -17,8 +17,11 @@
 <p>
     <a href="http://localhost:8080/group/new">Создать новую группу</a>
 </p>
-<p>
+<!--<p>
     <a href="http://localhost:8080/student">Студенты</a>
+</p>-->
+<p>
+    <a href="http://localhost:8080">На главную</a>
 </p>
 
 </body>

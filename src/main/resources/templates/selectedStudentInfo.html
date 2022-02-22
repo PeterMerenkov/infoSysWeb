@@ -6,6 +6,10 @@
 </head>
 <body>
 
+<h1>
+    Информация о студенте
+</h1>
+
 <div th:object="${selectedStudent}">
     <table>
         <tr>
@@ -21,7 +25,11 @@
             <td>ФАКУЛЬТЕТ-ГРУППА:</td><td th:text="*{studentGroup.faculty} + '-' + *{studentGroup.groupNumber}"></td>
         </tr>
     </table>
+
     <a th:href="@{*{id}} + @{/update}">Внести изменения</a>
+    <br />
+    <a th:href="@{*{id}} + @{/delete}">Удалить студента</a>
+    <br />
     <a href="http://localhost:8080/student/">Назад</a>
 </div>
 

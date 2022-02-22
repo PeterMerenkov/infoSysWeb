@@ -6,6 +6,10 @@
 </head>
 <body>
 
+<h1>
+    Информация о группе
+</h1>
+
 <div th:object="${selectedGroup}">
     <table>
         <tr>
@@ -18,7 +22,11 @@
             <td>Номер группы:</td><td th:text="*{groupNumber}"></td>
         </tr>
     </table>
+
     <a th:href="@{*{id}} + @{/update}">Внести изменения</a>
+    <br />
+    <a th:href="@{*{id}} + @{/delete}">Удалить группу</a>
+    <br />
     <a href="http://localhost:8080/group/">Назад</a>
 </div>
 

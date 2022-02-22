@@ -6,6 +6,10 @@
 </head>
 <body>
 
+<h1>
+    Изменить группу
+</h1>
+
 <form th:method="POST" th:action="@{/group/} + @{${groupId}} + @{/update}" th:object="${group}" enctype="multipart/form-data">
 
     <table>

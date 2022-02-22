@@ -6,6 +6,10 @@
 </head>
 <body>
 
+<h1>
+    Изменить студента
+</h1>
+
 <form th:method="POST" th:action="@{/student/} + @{${studentId}} + @{/update}" th:object="${student}" enctype="multipart/form-data">
 
     <table>
@@ -18,7 +22,7 @@
         <tr>
             <td>ФАКУЛЬТЕТ-ГРУППА:</td>
             <td>
-                <select th:object="${groupId}" th:field="*{groupId}">
+                <select th:name="groupId">
                     <option th:each="group : ${groups}" th:value="${group.id}"
                             th:utext="${group.faculty} + '-' + ${group.groupNumber}"></option>
                 </select>
