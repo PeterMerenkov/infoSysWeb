@@ -10,27 +10,28 @@
     Создание новой группы
 </h1>
 
-<form th:method="POST" th:action="@{/group}" th:object="${group}">
+<main>
 
-    <label>Номер группы:
-        <input type="number" th:field="*{groupNumber}" />
-    </label>
+    <form th:method="POST" th:action="@{/group}" th:object="${group}">
 
-    <br />
+        <table>
+            <tr>
+                <td>Факультет:</td> <td><input type="text" th:field="*{faculty}" required/></td>
+            </tr>
 
-    <label>Факультет:
-        <input type="text" th:field="*{faculty}" />
-    </label>
+            <tr>
+                <td>Номер группы:</td> <td><input type="number" min="1" max="1000" th:field="*{groupNumber}" required/></td>
+            </tr>
+        </table>
 
-    <br />
-    <br />
+        <input type="submit" value="Создать группу!">
+    </form>
 
-    <input type="submit" value="Создать группу!">
-</form>
+    <p>
+        <a href="http://localhost:8080/group">Назад</a>
+    </p>
 
-<p>
-    <a href="http://localhost:8080/group">Назад</a>
-</p>
+</main>
 
 </body>
 </html>

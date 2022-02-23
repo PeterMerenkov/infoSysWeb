@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://thymeleaf.org">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title>new</title>
+    <title>Изменение студента</title>
 </head>
 <body>
 
@@ -10,32 +10,40 @@
     Изменить студента
 </h1>
 
-<form th:method="POST" th:action="@{/student/} + @{${studentId}} + @{/update}" th:object="${student}" enctype="multipart/form-data">
+<main>
 
-    <table>
-        <tr>
-            <td>ФИО студента:</td><td><input type="text" th:field="*{fullName}" /></td>
-        </tr>
-        <tr>
-            <td>Дата зачисления:</td><td><input type="date" th:field="*{dateOfAdmission}" /></td>
-        </tr>
-        <tr>
-            <td>ФАКУЛЬТЕТ-ГРУППА:</td>
-            <td>
-                <select th:name="groupId">
-                    <option th:each="group : ${groups}" th:value="${group.id}"
-                            th:utext="${group.faculty} + '-' + ${group.groupNumber}"></option>
-                </select>
-            </td>
-        </tr>
-    </table>
+    <form th:method="POST" th:action="@{/student/} + @{${studentId}} + @{/update}" th:object="${student}" enctype="multipart/form-data">
 
-    <input type="submit" value="Обновить студента!" />
-</form>
+        <table>
+            <tr>
+                <td>ФИО студента:</td><td><input type="text" th:field="*{fullName}" required /></td>
+            </tr>
 
-<p>
-    <a href="http://localhost:8080/student">Назад</a>
-</p>
+            <tr>
+                <td>Дата зачисления:</td><td><input type="date" th:field="*{dateOfAdmission}" required /></td>
+            </tr>
+
+            <tr>
+                <td>ФАКУЛЬТЕТ-ГРУППА:</td>
+                <td>
+                    <select th:name="groupId" required>
+                        <option disabled selected value=''>Выбор группы</option>
+                        <option th:each="group : ${groups}" th:value="${group.id}"
+                                th:utext="${group.faculty} + '-' + ${group.groupNumber}"></option>
+                    </select>
+                </td>
+            </tr>
+        </table>
+
+        <input type="submit" value="Обновить студента!" />
+    </form>
+
+
+    <p>
+        <a href="http://localhost:8080/student">Назад</a>
+    </p>
+
+</main>
 
 </body>
 </html>

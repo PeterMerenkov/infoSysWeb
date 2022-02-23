@@ -10,18 +10,23 @@
     Список групп
 </h1>
 
-<div>
+<main>
+
     <form th:action="@{http://localhost:8080/group/search}">
+
         <label>Поиск:
-            <input type="text" th:name="needle"/>
+            <input type="text" th:name="needle" required/>
         </label>
+
         <input type="submit" value="Найти!">
     </form>
 
+
     <form th:action="@{http://localhost:8080/group/sort}">
+
         <label>Сортировать по:
-            <select name="sort">
-                <option disabled selected>Выберете метод</option>
+            <select name="sort" required>
+                <option disabled selected value=''>Выберете метод</option>
                 <option value="ById">ID</option>
                 <option value="ByFaculty">Факультету</option>
                 <option value="ByGroupNumber">Номеру группы</option>
@@ -31,34 +36,38 @@
         <input type="submit" value="Отсортировать!">
     </form>
 
+
     <table border="1">
 
         <thead>
-        <tr>
-            <td>ID</td><td>Факультет</td><td>Номер группы</td><td>Подробнее</td>
-        </tr>
+            <tr>
+                <td>ID</td><td>Факультет</td><td>Номер группы</td><td>Подробнее</td>
+            </tr>
         </thead>
+
         <tbody>
-        <tr th:each="group : ${groups}" th:object="${group}">
-            <td th:text="*{id}"></td>
-            <td th:text="*{faculty}"></td>
-            <td th:text="*{groupNumber}"></td>
-            <td>
-                <a th:href="@{http://localhost:8080/group/} + @{${group.id}}">Подробнее</a>
-            </td>
-        </tr>
+            <tr th:each="group : ${groups}" th:object="${group}">
+                <td th:text="*{id}"></td>
+                <td th:text="*{faculty}"></td>
+                <td th:text="*{groupNumber}"></td>
+                <td>
+                    <a th:href="@{http://localhost:8080/group/} + @{${group.id}}">Подробнее</a>
+                </td>
+            </tr>
         </tbody>
-
     </table>
-</div>
 
-<p>
-    <a href="http://localhost:8080/group/new">Создать новую группу</a>
-</p>
 
-<p>
-    <a href="http://localhost:8080">На главную</a>
-</p>
+    <p>
+        <a href="http://localhost:8080/group/new">Создать новую группу</a>
+    </p>
+
+
+    <p>
+        <a href="http://localhost:8080">На главную</a>
+    </p>
+
+</main>
 
 </body>
 </html>
