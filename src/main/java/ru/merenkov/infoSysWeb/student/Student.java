@@ -2,7 +2,6 @@ package ru.merenkov.infoSysWeb.student;
 
 import org.springframework.format.annotation.DateTimeFormat;
 import ru.merenkov.infoSysWeb.group.Group;
-import ru.merenkov.infoSysWeb.group.GroupService;
 
 import javax.persistence.*;
 import java.time.LocalDate;

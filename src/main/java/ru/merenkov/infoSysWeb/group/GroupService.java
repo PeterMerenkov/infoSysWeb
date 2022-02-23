@@ -6,10 +6,6 @@ import ru.merenkov.infoSysWeb.group.comparators.GroupFacultyComparator;
 import ru.merenkov.infoSysWeb.group.comparators.GroupIdComparator;
 import ru.merenkov.infoSysWeb.group.comparators.GroupNumberComparator;
 import ru.merenkov.infoSysWeb.student.Student;
-import ru.merenkov.infoSysWeb.student.comparators.StudentDateComparator;
-import ru.merenkov.infoSysWeb.student.comparators.StudentFullNameComparator;
-import ru.merenkov.infoSysWeb.student.comparators.StudentGroupComparator;
-import ru.merenkov.infoSysWeb.student.comparators.StudentIdComparator;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
@@ -73,6 +69,7 @@ public class GroupService {
         for(Student student : students) {
             if (student.getStudentGroup().compareTo(group) == 0) {
                 canDelete = false;
+                break;
             }
         }
 

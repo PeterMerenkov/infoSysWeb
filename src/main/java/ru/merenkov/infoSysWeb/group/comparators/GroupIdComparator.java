@@ -3,7 +3,6 @@ package ru.merenkov.infoSysWeb.group.comparators;
 import ru.merenkov.infoSysWeb.group.Group;
 
 import java.util.Comparator;
-import java.util.Locale;
 
 public class GroupIdComparator implements Comparator<Group> {
 

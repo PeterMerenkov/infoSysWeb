@@ -1,7 +1,6 @@
 package ru.merenkov.infoSysWeb.group.comparators;
 
 import ru.merenkov.infoSysWeb.group.Group;
-import ru.merenkov.infoSysWeb.student.Student;
 
 import java.util.Comparator;
 import java.util.Locale;

@@ -69,14 +69,6 @@ public class Group implements Comparable<Group> {
 
     @Override
     public int compareTo(Group otherGroup){
-        if (this.toString().compareTo(otherGroup.toString()) > 0) {
-            return 1;
-        }
-        else if (this.toString().compareTo(otherGroup.toString()) < 0) {
-            return -1;
-        }
-        else {
-            return 0;
-        }
+        return Integer.compare(this.toString().compareTo(otherGroup.toString()), 0);
     }
 }
