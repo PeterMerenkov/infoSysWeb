@@ -25,18 +25,6 @@ public class StudentController {
         return "students";
     }
 
-    @GetMapping(path = "/search")
-    public String getSearchedStudents(Model model, @RequestParam("needle") String needle) {
-        model.addAttribute("students", studentService.searchStudents(needle));
-        return "students";
-    }
-
-    @GetMapping(path = "/sort")
-    public String getSortedStudents(Model model, @RequestParam("sort") String sort) {
-        model.addAttribute("students", studentService.getStudentsSortedBy(sort));
-        return "students";
-    }
-
     @GetMapping(path = "{studentId}")
     public String getStudent(Model model, @PathVariable("studentId") Long studentId) {
         model.addAttribute("selectedStudent", studentService.getStudentById(studentId));
@@ -78,5 +66,17 @@ public class StudentController {
     public String deleteStudent(@PathVariable("studentId") Long studentId) {
         studentService.deleteStudent(studentId);
         return "redirect:/student";
+    }
+
+    @GetMapping(path = "/search")
+    public String getSearchedStudents(Model model, @RequestParam("needle") String needle) {
+        model.addAttribute("students", studentService.searchStudents(needle));
+        return "students";
+    }
+
+    @GetMapping(path = "/sort")
+    public String getSortedStudents(Model model, @RequestParam("sort") String sort) {
+        model.addAttribute("students", studentService.getStudentsSortedBy(sort));
+        return "students";
     }
 }

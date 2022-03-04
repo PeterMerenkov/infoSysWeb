@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Экспорт базы данных</title>
+</head>
+<body>
+
+<h1>
+    Экспорт базы данных
+</h1>
+
+<main>
+
+    <form th:method="POST" th:action="@{/downloadDB.json}" enctype="multipart/form-data">
+        <input type="submit" value="Скачать!">
+    </form>
+
+
+    <p>
+        <a href="http://localhost:8080/">Назад</a>
+    </p>
+
+</main>
+
+</body>
+</html>

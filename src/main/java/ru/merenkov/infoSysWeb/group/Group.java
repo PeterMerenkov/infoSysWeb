@@ -60,11 +60,11 @@ public class Group implements Comparable<Group> {
 
     @Override
     public String toString() {
-        return "Group{" +
-                "id=" + id +
-                ", groupNumber=" + groupNumber +
-                ", faculty='" + faculty + '\'' +
-                '}';
+        return "{" +
+                "\"id\":" + id +
+                ", \"groupNumber\": " + groupNumber +
+                ", \"faculty\": \"" + faculty +
+                "\"}";
     }
 
     @Override

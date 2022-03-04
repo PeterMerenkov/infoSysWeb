@@ -82,11 +82,11 @@ public class Student {
 
     @Override
     public String toString() {
-        return "Student{" +
-                "id=" + id +
-                ", fullName='" + fullName + '\'' +
-                ", dateOfAdmission=" + dateOfAdmission +
-                ", group=" + studentGroup +
+        return "{" +
+                "\"id\": " + id +
+                ", \"fullName\": \"" + fullName + '\"' +
+                ", \"dateOfAdmission\": \"" + dateOfAdmission +
+                "\", \"groupId\": " + studentGroup.getId() +
                 '}';
     }
 }

@@ -25,18 +25,6 @@ public class GroupController {
         return "groups";
     }
 
-    @GetMapping(path = "/search")
-    public String getSearchedStudents(Model model, @RequestParam("needle") String needle) {
-        model.addAttribute("groups", groupService.searchGroups(needle));
-        return "groups";
-    }
-
-    @GetMapping(path = "/sort")
-    public String getSortedStudents(Model model, @RequestParam("sort") String sort) {
-        model.addAttribute("groups", groupService.getGroupsSortedBy(sort));
-        return "groups";
-    }
-
     @GetMapping(path = "{groupId}")
     public String getGroup(Model model, @PathVariable("groupId") Long groupId) {
         model.addAttribute("selectedGroup", groupService.getGroupById(groupId));
@@ -56,7 +44,7 @@ public class GroupController {
         return "redirect:/group";
     }
 
-    @GetMapping("/new")
+    @GetMapping(path = "/new")
     public String createGroup(@ModelAttribute("group") Group group) {
         return "newGroup";
     }
@@ -76,4 +64,17 @@ public class GroupController {
         }
 
     }
+
+    @GetMapping(path = "/search")
+    public String getSearchedStudents(Model model, @RequestParam("needle") String needle) {
+        model.addAttribute("groups", groupService.searchGroups(needle));
+        return "groups";
+    }
+
+    @GetMapping(path = "/sort")
+    public String getSortedStudents(Model model, @RequestParam("sort") String sort) {
+        model.addAttribute("groups", groupService.getGroupsSortedBy(sort));
+        return "groups";
+    }
+
 }

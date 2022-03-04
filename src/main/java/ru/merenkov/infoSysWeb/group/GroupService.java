@@ -1,5 +1,9 @@
 package ru.merenkov.infoSysWeb.group;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.merenkov.infoSysWeb.group.comparators.GroupFacultyComparator;
@@ -8,10 +12,13 @@ import ru.merenkov.infoSysWeb.group.comparators.GroupNumberComparator;
 import ru.merenkov.infoSysWeb.student.Student;
 
 import javax.transaction.Transactional;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
-import java.util.Objects;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.math.BigInteger;
+import java.time.LocalDate;
+import java.util.*;
 
 @Service
 public class GroupService {
@@ -21,6 +28,10 @@ public class GroupService {
     @Autowired
     public GroupService(GroupRepos groupRepos) {
         this.groupRepos = groupRepos;
+    }
+
+    public boolean existsById(Long id) {
+        return groupRepos.existsById(id);
     }
 
     public GroupRepos getGroupRepos() {

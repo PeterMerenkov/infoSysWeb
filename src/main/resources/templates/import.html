@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Импорт базы данных</title>
+</head>
+<body>
+
+<h1>
+    Импорт базы данных
+</h1>
+
+<main>
+
+    <form th:method="POST" th:action="@{/import}" enctype="multipart/form-data">
+
+        <label>Выберете файл для загрузки
+            <input type="file" name="fileDB" />
+        </label>
+
+        <br />
+
+        <input type="submit" value="Импортировать!">
+    </form>
+
+    <p>
+        <a href="http://localhost:8080/">Назад</a>
+    </p>
+
+</main>
+
+</body>
+</html>
