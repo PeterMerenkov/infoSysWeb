@@ -1,0 +1,50 @@
+{
+	"groups": [
+	{
+			"id": 3,
+			"groupNumber": 95,
+			"faculty": "BruhChanged"
+		},
+		{
+			"id": 4,
+			"groupNumber": 991,
+			"faculty": "SalesChanged"
+		},
+		{
+		
+			"groupNumber": 54,
+			"faculty": "fac1"
+		},
+		{
+			
+			"groupNumber": 45,
+			"faculty": "fac2"
+		}
+	],
+	"students": [
+	{
+			"id": 3,
+			"fullName": "Paul Allen Changed",
+			"dateOfAdmission": "2018-09-14",
+			"groupId": 3
+		},
+		{
+			"id": 4,
+			"fullName": "Joan King Changed",
+			"dateOfAdmission": "2020-04-30",
+			"groupId": 4
+		},
+		{
+			
+			"fullName": "123 Lewis",
+			"dateOfAdmission": "2009-04-14",
+			"groupId": 2
+		},
+		{
+			
+			"fullName": "124 Wilson",
+			"dateOfAdmission": "2012-07-13",
+			"groupId": 3
+		}
+	]
+}
