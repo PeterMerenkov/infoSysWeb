@@ -15,7 +15,7 @@
     <form th:method="POST" th:action="@{/import}" enctype="multipart/form-data">
 
         <label>Выберете файл для загрузки
-            <input type="file" name="fileDB" />
+            <input type="file" name="fileDB" required/>
         </label>
 
         <br />

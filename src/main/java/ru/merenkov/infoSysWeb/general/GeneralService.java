@@ -27,79 +27,72 @@ public class GeneralService {
     }
 
     public void mergeDB(String path) {
+
         JSONParser parser = new JSONParser();
-
-        //-----ser-------
-
-        /*JSONObject rootJsonObject = null;
-
-        try {
-            FileInputStream fis = new FileInputStream(fileDB);
-            ObjectInputStream ois = new ObjectInputStream(fis);
-            rootJsonObject = (JSONObject) parser.parse(((JSONObject) ois.readObject()).toJSONString());
-        } catch (IOException | ParseException | ClassNotFoundException e) {
-            e.printStackTrace();
-        }*/
-
-        //---no-ser------
 
         JSONObject rootJsonObject = null;
         FileReader reader = null;
         try {
+
             reader = new FileReader(path);
             rootJsonObject = (JSONObject) parser.parse(reader);
+
+
+            //--------
+
+            JSONArray groupJSONArr = (JSONArray) rootJsonObject.get("groups");
+
+            for(Object it : groupJSONArr) {
+                JSONObject groupJSONObj = (JSONObject) it;
+
+
+                Group tempGroup = new Group(
+                        ((Long) groupJSONObj.get("groupNumber")).intValue(),
+                        (String) groupJSONObj.get("faculty"));
+
+                boolean isThereGroupId = groupJSONObj.containsKey("id");
+                if (isThereGroupId && groupService.existsById((Long) groupJSONObj.get("id"))) {
+                    groupService.updateGroup((Long) groupJSONObj.get("id"), tempGroup);
+                } else {
+                    groupService.addNewGroup(tempGroup);
+                }
+            }
+
+            //--------
+
+            JSONArray studentJSONArr = (JSONArray) rootJsonObject.get("students");
+
+            for(Object it : studentJSONArr) {
+                JSONObject studentJSONObj = (JSONObject) it;
+
+                String[] tempDate = ((String) studentJSONObj.get("dateOfAdmission")).split("-");
+
+                Student tempStudent = new Student(
+                        (String) studentJSONObj.get("fullName"),
+                        LocalDate.of(Integer.parseInt(tempDate[0]),Integer.parseInt(tempDate[1]), Integer.parseInt(tempDate[2])),
+                        groupService.getGroupById((Long) studentJSONObj.get("groupId")));
+
+                boolean isThereStudId = studentJSONObj.containsKey("id");
+                if (isThereStudId && studentService.existsById((Long) studentJSONObj.get("id"))) {
+                    studentService.updateStudent((Long) studentJSONObj.get("id"), tempStudent);
+                } else {
+                    studentService.addNewStudent(tempStudent);
+                }
+            }
         } catch (IOException | ParseException e) {
             e.printStackTrace();
-        }
+        } finally {
 
-        //--------
-
-        JSONArray groupJSONArr = (JSONArray) rootJsonObject.get("groups");
-
-        for(Object it : groupJSONArr) {
-            JSONObject groupJSONObj = (JSONObject) it;
-
-
-            Group tempGroup = new Group((Long) groupJSONObj.get("id"),
-                    ((Long) groupJSONObj.get("groupNumber")).intValue(),
-                    (String) groupJSONObj.get("faculty"));
-
-            Long groupId = ((Long) groupJSONObj.get("id"));
-            if (groupService.existsById(groupId)) {
-                groupService.updateGroup(groupId, tempGroup);
-            } else {
-                groupService.addNewGroup(tempGroup);
+            if (reader != null) {
+                try {
+                    reader.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
+
         }
 
-        //--------
-
-        JSONArray studentJSONArr = (JSONArray) rootJsonObject.get("students");
-
-        for(Object it : studentJSONArr) {
-            JSONObject studentJSONObj = (JSONObject) it;
-
-            String[] tempDate = ((String) studentJSONObj.get("dateOfAdmission")).split("-");
-
-            Student tempStudent = new Student(
-                    (Long) studentJSONObj.get("id"),
-                    (String) studentJSONObj.get("fullName"),
-                    LocalDate.of(Integer.parseInt(tempDate[0]),Integer.parseInt(tempDate[1]), Integer.parseInt(tempDate[2])),
-                    groupService.getGroupById((Long) studentJSONObj.get("groupId")));
-
-            Long studentId = (Long) studentJSONObj.get("id");
-            if (studentService.existsById(studentId)) {
-                studentService.updateStudent(studentId, tempStudent);
-            } else {
-                studentService.addNewStudent(tempStudent);
-            }
-        }
-
-        try {
-            reader.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
         //-------
     }
 

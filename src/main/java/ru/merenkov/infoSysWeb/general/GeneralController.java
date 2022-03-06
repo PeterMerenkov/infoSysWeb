@@ -26,6 +26,11 @@ public class GeneralController {
         this.generalService = generalService;
     }
 
+    @GetMapping(path = "/import/error")
+    public String getError() {
+        return "studentDeleteError";
+    }
+
     @GetMapping
     public String getIndexPage() {
         return "index";
